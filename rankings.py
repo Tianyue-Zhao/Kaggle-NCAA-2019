@@ -9,7 +9,7 @@ TeamList = pd.read_csv('womens-machine-learning-competition-2019/WDataFiles/WTea
 teams = TeamList["TeamID"].tolist()
 
 teamsWL = {}
-for team in teams:
+for team in teams[:15]:
     #TOURNEY RESULTS
     TourneyWinList = TourneyResults["WTeamID"].tolist()
     TourneyLossList = TourneyResults["LTeamID"].tolist()
@@ -25,10 +25,12 @@ for team in teams:
     if (TourneyWins+SeasonWins+TourneyLosses+SeasonLosses > 0):
         WLRatio = (TourneyWins+SeasonWins)/float(TourneyLosses+SeasonLosses)
     else:
-        WLRatio = "No Games"
+        WLRatio = "No Data"
     teamsWL.update({team:WLRatio})
 
-print(teamsWL)
+teamRankings = sorted(teamsWL.items() ,  key=lambda x: x[1], reverse=True)
+
+print(teamRankings)
 
 
 
