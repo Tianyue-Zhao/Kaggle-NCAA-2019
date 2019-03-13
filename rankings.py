@@ -1,5 +1,6 @@
 import pandas as pd
 from pandas import read_csv
+from collections import OrderedDict
 	#Access any file with "FileName" - e.g. print(WTeams[0])
 
 #RANKING ALGORITHM
@@ -9,7 +10,7 @@ TeamList = pd.read_csv('womens-machine-learning-competition-2019/WDataFiles/WTea
 teams = TeamList["TeamID"].tolist()
 
 teamsWL = {}
-for team in teams[:15]:
+for team in teams:
     #TOURNEY RESULTS
     TourneyWinList = TourneyResults["WTeamID"].tolist()
     TourneyLossList = TourneyResults["LTeamID"].tolist()
@@ -28,8 +29,7 @@ for team in teams[:15]:
         WLRatio = "No Data"
     teamsWL.update({team:WLRatio})
 
-teamRankings = sorted(teamsWL.items() ,  key=lambda x: x[1], reverse=True)
-
+teamRankings = OrderedDict(sorted(teamsWL.items(), key=lambda x: x[1], reverse=True))
 print(teamRankings)
 
 
